@@ -2,43 +2,40 @@
 
 require './src/game.php';
 
-// $this->someAssertion($actual, $expected);
-
 class GameTest extends PHPUnit_Framework_TestCase {
+
+  protected $game;
+  protected $rock;
+  protected $scissors;
+  protected $paper;
+
+  protected function setUp() {
+    $this->rock = new Rock();
+    $this->game = new Game();
+    $this->scissors = new Scissors();
+    $this->paper = new Paper();
+  }
+
   public function testCheckType() {
-    $rock = new Rock();
-    $this->assertEquals(get_class($rock), "Rock");
-    $paper = new Paper();
-    $this->assertEquals(get_class($paper), "Paper");
-    $scissors = new Scissors();
-    $this->assertEquals(get_class($scissors), "Scissors");
+    $this->assertEquals(get_class($this->rock), "Rock");
+    $this->assertEquals(get_class($this->paper), "Paper");
+    $this->assertEquals(get_class($this->scissors), "Scissors");
   }
 
   public function testReturnsDraw() {
-    $game = new Game();
-    $rock = new Rock();
-    $this->assertEquals($game->evaluates($rock, $rock), "Draw");
+    $this->assertEquals($this->game->evaluates($this->rock, $this->rock), "Draw");
   }
 
   public function testRockBeatsScissors() {
-    $game = new Game();
-    $rock = new Rock();
-    $scissors = new Scissors();
-    $this->assertEquals($game->evaluates($rock, $scissors), $rock);
+    $this->assertEquals($this->game->evaluates($this->rock, $this->scissors), $this->rock);
   }
 
   public function testScissorsBeatsPaper() {
-    $game = new Game();
-    $scissors = new Scissors();
-    $paper = new Paper();
-    $this->assertEquals($game->evaluates($paper, $scissors), $scissors);
+    $this->assertEquals($this->game->evaluates($this->paper, $this->scissors), $this->scissors);
   }
 
   public function testPaperBeatsRock() {
-    $game = new Game();
-    $paper = new Paper();
-    $rock = new Rock();
-    $this->assertEquals($game->evaluates($rock, $paper), $paper);
+    $this->assertEquals($this->game->evaluates($this->rock, $this->paper), $this->paper);
   }
 }
 
