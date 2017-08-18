@@ -26,6 +26,20 @@ class GameTest extends PHPUnit_Framework_TestCase {
     $scissors = new Scissors();
     $this->assertEquals($game->evaluates($rock, $scissors), $rock);
   }
+
+  public function testScissorsBeatsPaper() {
+    $game = new Game();
+    $scissors = new Scissors();
+    $paper = new Paper();
+    $this->assertEquals($game->evaluates($paper, $scissors), $scissors);
+  }
+
+  public function testPaperBeatsRock() {
+    $game = new Game();
+    $paper = new Paper();
+    $rock = new Rock();
+    $this->assertEquals($game->evaluates($rock, $paper), $paper);
+  }
 }
 
  ?>
